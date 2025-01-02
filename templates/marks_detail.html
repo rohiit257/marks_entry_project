@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Marks</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Get Marks</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="student">Select Student:</label>
+                <select class="form-control" name="student_id" id="student">
+                    <option value="">-- Select Student --</option>
+                    {% for student in students %}
+                        <option value="{{ student.id }}">{{ student.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="question">Select Question:</label>
+                <select class="form-control" name="question_id" id="question">
+                    <option value="">-- Select Question --</option>
+                    {% for question in questions %}
+                        <option value="{{ question.id }}">{{ question.question_id }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Marks</button>
+        </form>
+        {% if marks %}
+            <div class="mt-4">
+                <h2>Marks</h2>
+                <p><strong>Student:</strong> {{ marks.student.name }}</p>
+                <p><strong>Question:</strong> {{ marks.question.question_id }}</p>
+                <p><strong>Marks:</strong> {{ marks.marks }}</p>
+            </div>
+        {% endif %}
+    </div>
+    <!-- Bootstrap JS (Optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
